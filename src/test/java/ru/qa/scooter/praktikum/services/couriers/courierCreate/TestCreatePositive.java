@@ -1,22 +1,21 @@
-package courierCreate;
+package ru.qa.scooter.praktikum.services.couriers.courierCreate;
 
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import params.CourierCreate;
-import params.CourierLogin;
+import ru.qa.scooter.praktikum.services.BaseTest;
+import ru.qa.scooter.praktikum.services.params.CourierCreate;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 @RunWith(Parameterized.class)
-public class TestCreatePositive {
+public class TestCreatePositive extends BaseTest {
     private String login;
     private String password;
     private String firstName;
@@ -38,7 +37,7 @@ public class TestCreatePositive {
 
     @Before
     public void baseurl() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
+        baseTestURL();
     }
 
     @Step("Передача данных регистрации")
@@ -62,15 +61,12 @@ public class TestCreatePositive {
     @DisplayName("Создание пользователя: позитивные проверки")
     public void createPositive(){
         Response response = signIn();
-        checkOk(response);
         checkCode(response);
+        checkOk(response);
     }
 
     @After
     public void deleteCourier(){
-        CourierLogin courierLogin = new CourierLogin(login, password);
-        int id = given().header("Content-type", "application/json").and().body(courierLogin).post("/api/v1/courier/login")
-                .then().extract().body().path("id");
-        given().delete("/api/v1/courier/{id}", id).then().assertThat().statusCode(200);
+        deleteTestCourier(login,password);
     }
 }

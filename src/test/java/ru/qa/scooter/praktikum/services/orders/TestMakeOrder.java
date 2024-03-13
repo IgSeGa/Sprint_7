@@ -1,14 +1,14 @@
+package ru.qa.scooter.praktikum.services.orders;
 import com.google.gson.Gson;
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import params.MakeOrder;
+import ru.qa.scooter.praktikum.services.params.MakeOrder;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -76,7 +76,7 @@ public class TestMakeOrder {
     @DisplayName("Проверка создания заказа")
     public void testMakeOrder(){
         Response response = makeOrder();
-        checkTrack(response);
         checkCode(response);
+        checkTrack(response);
     }
 }

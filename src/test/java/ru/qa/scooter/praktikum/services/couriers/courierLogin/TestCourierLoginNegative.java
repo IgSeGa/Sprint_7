@@ -1,4 +1,4 @@
-package courierLogin;
+package ru.qa.scooter.praktikum.services.couriers.courierLogin;
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
@@ -8,14 +8,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import params.CourierCreate;
-import params.CourierLogin;
+import ru.qa.scooter.praktikum.services.BaseTest;
+import ru.qa.scooter.praktikum.services.params.CourierCreate;
+import ru.qa.scooter.praktikum.services.params.CourierLogin;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 @RunWith(Parameterized.class)
-public class TestCourierLoginNegative {
+public class TestCourierLoginNegative extends BaseTest {
 
     private String login;
     private String password;
@@ -41,9 +42,8 @@ public class TestCourierLoginNegative {
     }
     @Before
     public void baseurl() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
-        CourierCreate courierCreate = new CourierCreate("etalon", "1234","");
-        given().header("Content-type", "application/json").and().body(courierCreate).post("/api/v1/courier");
+        baseTestURL();
+        createTestCourier("etalon", "1234","");
     }
 
     @Step("Отправка некорректных данных логина")
@@ -66,14 +66,11 @@ public class TestCourierLoginNegative {
     @DisplayName("Логин: негативные проверки")
     public void checkWrongLogin(){
         Response response = login();
-        checkMessage(response);
         checkCode(response);
+        checkMessage(response);
     }
     @After
     public void deleteCourier(){
-        CourierLogin courier = new CourierLogin("etalon", "1234");
-        int id = given().header("Content-type", "application/json").and().body(courier).post("/api/v1/courier/login")
-                .then().extract().body().path("id");
-        given().delete("/api/v1/courier/{id}", id).then().assertThat().statusCode(200);
+        deleteTestCourier("etalon", "1234");
     }
 }

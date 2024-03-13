@@ -1,4 +1,4 @@
-package params;
+package ru.qa.scooter.praktikum.services.params;
 
 public class CourierLogin {
 

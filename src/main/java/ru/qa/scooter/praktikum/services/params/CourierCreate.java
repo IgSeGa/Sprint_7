@@ -1,4 +1,4 @@
-package params;
+package ru.qa.scooter.praktikum.services.params;
 
 public class CourierCreate {
     String login;
@@ -12,7 +12,6 @@ public class CourierCreate {
     }
 
     public CourierCreate(){
-
     }
 
     public String getLogin() {
