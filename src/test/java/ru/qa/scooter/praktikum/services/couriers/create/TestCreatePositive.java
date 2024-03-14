@@ -1,4 +1,4 @@
-package ru.qa.scooter.praktikum.services.couriers.courierCreate;
+package ru.qa.scooter.praktikum.services.couriers.create;
 
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;

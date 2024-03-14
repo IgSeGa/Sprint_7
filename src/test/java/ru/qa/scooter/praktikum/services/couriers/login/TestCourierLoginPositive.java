@@ -1,13 +1,11 @@
-package ru.qa.scooter.praktikum.services.couriers.courierLogin;
+package ru.qa.scooter.praktikum.services.couriers.login;
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.qa.scooter.praktikum.services.BaseTest;
-import ru.qa.scooter.praktikum.services.params.CourierCreate;
 import ru.qa.scooter.praktikum.services.params.CourierLogin;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
